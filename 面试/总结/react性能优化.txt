@@ -1,0 +1,41 @@
+1.属性传递优化
+   bind指向写进constructor中
+
+2. 组件嵌套
+     父组件向子组件传递对象时候，
+     例如<Demo  name={{ this.state.name }}  />  不要   name = {{ age: 18  }}
+     应该先把对象值先定义，不然每次使用子组件都会生成新的对象传递
+    
+
+3. shouldComponentUpdate( nextProps, nextState )
+       根据React组件的生命周期可以知道，组件在每次更新状态时都会执行shouldComponentUpdate函数，    为了减少额外渲染，可以在该函数内对当前的props/state与nextProps/nextState进行比较，如果有一致的     props/state则返回fasle说明不用重新渲染该组件，以减少重新渲染造成的性能浪费。
+
+4.用PureComponent替换Component
+      在使用shouldComponentUpdate比较前后的props/state是否一致时，通常会涉及到深层或者浅层的比较，可以使用PureComponent让组件穿过来的数据进行render而不是全部render
+
+5. ImmutableJS:
+   ImmutableJS是数据不可变，想要数据改变只能通过创建新数据的方式，而不能直接修改，很大程度的降低了两个数据比较时的复杂度
+   由于Immutable酷比较大       引入Immutablejs库的简易版  seamless-immutable    该库只支持Map，Set，List
+
+
+6. key值
+    这个key值尽量不要使用索引！！！
+
+
+7.redux性能优化
+
+    
+   可以使reselect库在内部对数据进行缓存处理，在重复调用时使用缓存快速加载
+
+
+8.咱们可以把确定不变的html代码抽出来做一个变量,写在jsx里面,生成React.createElement()代码,提升成静态元素，jsx直接把他们当作一个值，会减少解析过程，这个操作其实有babel插件babel-react-optimize,帮助咱们自动提取
+    const _ref = <span>Hello World</span>;
+class MyComponent extends Component {
+         render() {
+            return (
+              <div className={this.props.className}>
+                  {_ref}
+              </div>
+        );
+     }
+   }

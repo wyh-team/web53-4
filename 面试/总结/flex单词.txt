@@ -1,0 +1,107 @@
+水平的主轴  ：  main  axis
+
+垂直的交叉轴  ：  cross axis
+
+主轴的开始位置  ：  main start
+
+结束位置  ： main end
+
+交叉轴的开始位置  ： cross start 
+
+结束位置 ： cross end
+
+单个项目占据的主轴空间 ：  main size
+
+占据的交叉轴空间  :  cross size
+
+
+
+flex - direction : row                      默认值   横向排列
+
+flex - direction : row - reverse                    反向排列
+
+flex - direction : column                             垂直排列
+
+flex - direction : column - reverse              反向垂直排列
+
+flex - wrap : nowrap            flex容器为单行
+
+flex - wrap :  wrap               flex容器为多行
+
+flex - wrap : wrap - reverse    flex容器为多行 并且反向
+
+flex - flow : flex - direction    flex - wrap      合并写法
+       flex - direction : 定义弹性盒子元素的排列方向
+       flex - wrap : 控制flex容器是单行或者是多行
+
+
+        justify - content   子元素横向排版
+
+justify - content : flex -start            弹性盒子元素将向起始位置对齐
+
+justify - content : flex - end            弹性盒子元素将向行结束位置对齐
+
+justify - content : center                 弹性盒子将向行中间位置对齐
+
+justify - content : space - between    弹性盒子元素平均分布在行内
+
+justify - content : space - around      两端保留的距离是子元素于子元素间距大小的一半 
+
+
+          align - self                  子元素纵向排版
+
+
+align - self : flex -start            元素位于容器开头
+
+align - self : flex -end             元素位于容器的结尾
+
+align - self : auto                  默认值   元素继承了 父容器的 align - items 属性 如果没有父容器，则为 " stretch " 
+
+align - self : baseline             元素位于容器的基线上
+
+align - self :stretch               元素被拉伸以适应容器
+
+       
+        align - items             子元素纵向排版
+
+align -item : auto          默认  stretch
+
+align - items : flex - start      纵轴起始位置的边界紧靠该行侧纵轴起始边界     
+
+align - items : flex -end        纵轴起始位置的边界紧靠住该行的侧纵轴结束边界
+
+align - items : center             元素在该行的纵轴上居中放置
+
+align - items : baseline          基线对齐  / 与 flex - start  等效
+
+align - items : stretch            元素的边距盒的尺寸尽可能接近所在行的尺寸，但同时回遵照 ' min/max-width/height ' 属性的限制
+
+        
+          align - content  子元素纵向排版
+
+
+align - content : stretch                 默认值   元素的高度填充整个容器
+
+align - content : flex - start            从头开始， 一个挨着一个横向排列
+
+align - content : flex - end             从尾部开始，一个挨着一个横向排列
+
+align - content : center                   从中间开始  一个挨着一个横向排列
+
+align - content : space - between             各行在弹性盒容器内平均分布
+
+align - content : space - around                各行在弹性容器盒容器内平均分布，两端保留子元素与子元素之间间距大小的一半
+
+
+flex - grow  默认值为 0             意思：该元素b不索取父元素的剩余空间 ，如果值大于 0  表示索取 。 值越大，索取的越厉害
+
+
+flex - basis   该属性可以设置该元素的宽度 ， 如果元素上同时设置了width 和 flex - basis  ，那么  flex - basis 会覆盖 width的值
+
+
+flex - shrink   默认值为 1     该属性来设置 ， 当 子元素宽度和超过父元素宽度时侯 ， 子元素如何缩小自己的宽度的
+                  当父元素宽度小于子元素宽度和时候，子元素宽度就会减小。
+                  值越大，减小的越厉害      值为 0  表示不减小
+
+
+order  :  用来对 flex item 进行排序     

@@ -1,0 +1,496 @@
+es6新增
+    箭头函数、generator函数、解构、模板语法、Map、fillter，set, promise, let , const,  class类   extends继承
+
+
+
+阻止冒泡
+    js原生中：
+          [IE9+]：event.stopPropagation()
+          [JQ]：return false 会同时阻止默认行为和冒泡事件(在原生js中只会阻止默认事件)
+     
+   在React中：
+         合成事件: event.stopPropagation()
+       
+         阻止js原生事件冒泡：e.nativeEvent.stopPropagation()
+
+
+
+
+state对内， props对外
+
+this.setState
+  特点： 异步  合并更新
+原理：为了合并setState，我们需要一个队列来保存每次setState的数据，然后在一段时间后执行合并操作和更新state，并清空这个队列，然后渲染组件。
+
+执行：当state改变的时候去调用第二个参数，执行回调函数
+
+
+
+
+如何防止react直接渲染 
+
+    diff算法里面的key值   钩子函数 shouldComponentUpdata
+
+
+
+map和forEach的区别
+
+    map是有返回值的  forEach是没有返回值的
+
+
+受控类型组件：
+A）非受控组件
+定义：该组件内部的状态不受state控制；
+B）受控组件
+定义：组件的状态变化受到state的控制；
+
+
+
+简述react
+   首先它是mvc框架
+   他就是一个JS UI库，能够和市面上的包结合在一块使用，有很好的兼容性
+   数据流是单向的，只能父给子传值  
+
+
+react生命周期
+
+初始化阶段
+     constructor ()  初始化state
+     componentWillMount   
+     render            es6转es5    jsx转js
+     componentDidMount
+
+更新阶段
+      componentWillReceiveProps   
+      shouldComponentUpdate
+      componentWillUpdate
+      render 
+      componentDidUpdate
+  
+卸载阶段2
+      componentWillUnMount
+
+
+
+
+虚拟DOM
+
+      首先它存在内存中，刷新只会在内存中刷新
+      其次采用DIff算法，从而减少了全局刷新，实现了只刷新更改区域
+
+
+
+diff算法
+
+     1.把树形结构按照层级分解，只比较同级元素
+      
+      2.给列表结构的每个单元添加唯一的key值，方便比较。
+  
+      3.react只会匹配相同的class的Component（class指得是class组件的名字）
+
+      4.合并操作，调用component和setState方法的时候，React将其标记为
+        dirty，到每一个事件循环结束，react都会检查所有标记的dirty
+        的component重新重绘
+
+      5.选择性子树渲染。开发人员可以重写shouldComponentUpdata提高diff
+        的性能
+
+
+redux  
+    单向数据流
+    函数式编程
+    state只读
+    集中式管理
+
+
+
+react-redux 和  redux 区别
+   react-redux相当于连接react和redux的桥梁，他利用高阶组件connect将react和redux连接起来，使得开发方便
+
+
+     
+redux缺点？
+
+    要维护大量的Action Contants  Function 
+    当父组件的Props值发生改变的时候，即使子组件的state没有发生改变，依旧会重新渲染
+
+  例如设置一个点击事件，当点击的时候发送dispatch（action），然后去找action，
+            再转发action去找对应的reducer，更改state去覆盖store里面的state，哪个组件
+            需要就通过connect去连接store，通过mapStateToProps方法传递给props，直接
+            解构出来就可以了
+
+
+
+
+高阶组件
+  
+   高阶组件是一个函数，能够接受一个组件并返回一个新的组件。
+   高阶组件通过呗包裹的React组件来操作props
+   写一个函数，传入形参是个组件，返回这个组件，并且给他添加新的属性
+
+
+promise 
+       1.promise是es6新增的API  是一个异步对象  用来解决异步操作
+         2.promise有三个状态，pending，resolved，rejected
+         3.进入其中某个状态，就不能再更改
+         4.有两个方法， .then方法 成功回调  .catch方法 错误回调
+         5.多条数据回来的时候，可以通过 race方法，他有三个参数，每个参数都是一个函数，
+           谁最先回来，以谁为准
+         .all方法  有三个参数，每个参数都是函数，谁最后回来 以谁为准
+         .reace方法  谁快谁输出
+
+
+
+
+回调地狱简述 如何解决？
+
+    简述: 下一步的内容需要等到上一步的内容执行完毕
+    解决方法：使用generator函数进行封装
+
+
+
+
+generator
+         1.generator是一个状态机，每条yield语句都是一个状态
+         2.用同步的方法去写异步操纵
+         3.generator会返回一个遍历器对象，遍历器对象都有一个next方法，可以对yield语句进行
+           遍历，每次调用一次next方法，都会返回一个对象{value:值，done：false}
+           直到yield语句执行完毕或碰上 return 会返回{value：undefined，done：true}
+
+
+
+react-router
+
+        1.hashRouter 是基于location.hash来实现的  url地址会出现#号 对用户不友好
+          一般开发用这个，上线之前换成browserRouter
+
+        2.browserRouter  是基于H5的history来实现的 url地址不会出现#号，对用户友好
+
+        3.withRouter  高阶组件 也叫高阶路由 自带三个对象 history location match
+
+          一般用于接收不到这三个对象的组件，通过高阶路由包裹可以获得这三个对象
+          实现路由跳转 传值
+
+        4.动态路由  就是通过路由传值  一般通过Route里面的path的路径后面添加要传递
+          的值，可以在location里面的search获取我们传递的内容，也可以通过Link的标签
+          的to的地址后面加？id这样传递  也是通过location里面的search获取
+
+          如果只想匹配一个路由，可以使用Switch，在 <Switch> 中只有一个 <Route> 会被渲染，          同时         可以再在每个路由添加exact，做到精准匹配
+
+　　      Redirect，浏览器重定向，当多有都不匹配的时候，进行匹配
+
+
+
+中间件
+
+       1.中间件的作用：负责拦截action，然后去实现一些操作，通过中间件自己
+          的方法next转发action
+
+       2.next方法的作用：如果只有一个中间件，就会直接转发给
+       reducer，如果还有下一个中间件，就转发给下一个中间件，然后再转发给reducer
+
+       3.run方法的作用：自动调用next方法并且执行
+
+    常用中间件
+         
+          （1）redux-logger
+                 --负责拦截action 并且转发action
+                 --负责打印我们之前的state和之后state
+
+          （2）redux-thunk
+                 --负责拦截action 并且转发action 
+                 --让我们action可以执行异步操作
+ 
+          （3）redux-promise
+                 --负责拦截action 并且转发action
+                 --简化thunk的写法 也是让我们的action可以执行异步操作
+ 
+          （4）redux-saga
+                 --generator函数是一个状态机，内部有许多状态，每条yield语句
+                   都是一个状态
+
+                 --根据generator函数来进行异步操作，用同步的写法去写异步代码
+
+                 --generator函数有一个run方法，他会递归遍历yield语句 当遍历完成
+                   或碰上return遍历结束
+                 
+                 --generator函数会返回一个遍历器对象 遍历器对象都有一个next方法
+                   当你调用next方法会遍历一次yield语句，并且返回一个对象，对象里面
+                   有个done来判断是否遍历完成，变为true表示遍历完成 或碰上return
+                   就会返回true
+                
+                 --当next方法带参数，参数会给上一条yield语句的返回值赋值
+
+  （5）redux-saga/effects 也叫saga的附件或副作用
+                  
+                  --takeEvery的作用：两个参数，第一个是接收的假参数，第二个是你
+                    要执行的generator函数
+   
+                  --takeLatest作用：防止重复提交，当点击多次 只会执行最后一次
+
+                  --put的作用：转发action
+ 
+                  --call的作用：阻塞的作用，异步不执行完毕，不会执行后面的yield语句
+
+                  --fork的作用：非阻塞，不会等待结果，直接执行后面的yield语句
+
+                  --all的作用：合并saga
+
+
+   react组件间传值
+
+        1.父->子  通过props
+          子->父  子组件通过调用父组件的里面的函数来进行传值
+
+        2.redux进行组件间通信
+
+        3.context全局对象的方法进行跨级传值
+           context全局对象存在于propType中 这是一个格式校验，一般想要使用context全局对象
+           就必须要在这个组件中使用格式校验才可以获得context全局对象
+
+        4.事件订阅  哪个组件需要进行跨级通信 就让这两个组件进行订阅
+
+
+
+
+   dva  
+
+           1.dva是一个开源的框架，它的脚手架是roadhog脚手架，roadhog是基于af-webpack搭建的
+          脚手架
+
+        2.它集成了react-router、redux和react-redux、redux-saga和redux的监控redux-devtools 、
+
+        3.在dva中如果想要配置webpack就通过dva中自带的.webpackrc来进行配置
+
+        4.在dva中 所有的mock最终都要合并到.roadhogrc.mock.js中
+
+        5.dva的特点
+             --易学易用        等同于reducer              订阅，会触发
+             --elm概念   通过reducers、effects、subscriptions来组织model
+             --插件机制                          做异步操作用的
+             --支持hmr热加载   基于babel-plugin-dva-hmr 来实现
+
+        6.dva的优点
+             --简化了数据流
+             --方便维护
+             --提高了开发体验和速度
+             --支持跨度代理
+             --支持mock.js
+             --自带mock
+
+
+
+
+    对roadhog的了解
+
+   是dva基于webpack的脚手架 ,配置文件接口有两个：
+     1   mock的配置接口: roadhog.mock.js
+     2   webpack配置文件接口
+           .webpackrc    配置方式为 json
+           .webpackrc.js     配置方式为  js
+
+Dva有几个api?（你知道几个dva的api）
+7个api
+（1）创建dva实例：app.dva()
+（2）注册dva插件：app.use()
+（3）注册model：app.model()
+（4）卸载model：app.unmodel()
+（5）替换model：app.replacemodel()
+（6）注册router：app.router()
+（7）启动dva实例：app.start()
+
+
+   umi框架
+
+         1.umi是一个企业级的可插拔的开源框架
+
+         2.umi中集成了dva  umi中的数据流管理通过dva来进行管理
+
+         3.umi的优点
+             --插件化
+             --开箱即用
+             --约定式路由
+             --可以兼容到IE9
+             --完善的ts支持
+             --高性能
+
+
+简述umi  约定式
+
+      我按照你的规则写东西，那么就会自动生成
+
+
+遍历器iterator
+
+     1.iterator接口就是为了所有数据类型(Array Object Map Set)提供了一种统一的访问机制,
+       使用for..of会自动去寻找这个接口
+     
+     2.ES6规定，默认的iterator接口部署在数据结构的symbol.iterator属性，
+       也就是说一个数据结构只有具有（iterator）属性就可以用for...of和扩展运算符...
+
+     3.使用场景：for...of、Array.from()、 Map()、 Set()、 WeakMap()、 WeakSet()、 Promise.all()、 Promise.race()
+       这些方法都会自动调用这个接口 
+
+
+
+
+webpack基础配置项有哪些
+1》entry设置入口文件
+2》output设置出口文件
+3》module主要是用于打包文件。包含各种loader。Css-loader/less-loader/style-loader/babel-loader
+4》plugins设置插件 比如html-webpack-plugin、clean-webpack-plugin
+CommonsChunkPlugin 公用模块独立打包
+5》resolve用来配置webpack-dev-server服务器
+
+
+
+
+webpack打包最基本的实现方式 是将所有的模块代码放到一个数组里 通过数组ID来引用不同的模块、对吗
+webpack中每个模块有一个唯一的id，是从0开始递增的。参数则为一个数组。数组的每一项都为一个function。function的内容则为每个模块的内容，并按照require的顺序排列
+
+
+
+
+
+webpack常用插件
+
+     
+1.htmlWebpackPlugin          复制模板页
+
+2.cleanWebpackPlugin         清除打包文件夹 并且从新创建一个文件夹
+ 
+3.webpack-dev-server         热重载
+
+4.ProvidePlugin              可以在任何地方自动加载模块而不需要import 或 require 方法
+
+5.CommonsChunkPlugin         是一个可以用来提取公共模块的插件
+
+6.ExtractTextWebpackPlugin   分离 CSS
+
+7.UglifyJsPlugin             代码压缩输出
+
+
+如何利用webpack来优化前端性能？（提高性能和体验）
+用webpack优化前端性能是指优化webpack的输出结果，让打包的最终结果在浏览器中，运行快速而且高效。
+?压缩代码。可以利用webpack的plugin插件来压缩JS文件， 利用css-loader来压缩css文件
+?利用CDN加速。
+?通过commonChunkPlugin插件提取公共代码。减少冗余代码。
+
+
+ fetch 做前后端交互 可以拦截 mockjs吗？不可以 promise基于JQ里的ajax进行的封装
+ axios  对原生JS里的AJAX进行封装
+
+
+说一下axios和fetch的区别。
+Axios是基于原生js对ajax进行promise封装实现的。它的用法是axios().then().catch()
+Fetch是基于jq对$ajax进行promise封装实现的。它的用法是fetch().then().then().catch()
+而且fetch不能拦截mockjs。当然我们在工作中会经常用axios。因为axios的封装比fetch少一层。（可以说说axios特点）
+
+
+什么是axios ？axios有哪些特性？
+Axios是原生js中对ajax进行promise封装实现的。   
+ 它本身具有以下特征：
+从浏览器中创建 XMLHttpRequest
+从 node.js 发出 http 请求
+支持 Promise API
+
+拦截请求和响应
+转换请求和响应
+自动转换JSON数据
+取消请求
+
+
+
+import和require区别
+import是es6的引入模块方法，require是es5的引入模块语法 
+import是nodeJS的一种语法， require是AMD规范的框架
+import呢它的前面不允许有任何除了import以外的语法，require则是可以的。
+
+
+
+
+Es6中的symbol
+特点：值是独一无二的。
+      不能隐式转换。
+      不能与其他数据类型做运。
+      不能使用点运算符进行操作。
+let obj={};
+        obj[Symbol("a")]="tom";   //symbol数据类型，表示独一无二的值，即使值一样也代表两个值
+        obj[Symbol("a")]="jarry";
+        obj[Symbol("a")]="susan";
+        //因为键名相同无法遍历  提供了Object.getOwnPropertySymbols(对象)专门遍历symbol数据
+        for(let value of Object.getOwnPropertySymbols(obj)){
+            console.log(value);
+ }
+
+
+
+
+
+ts
+.typescript       
+TypeScript特点:
+            预编译  tsx/ts?js
+            有类型的script
+            面向对象 枚举 接口 访问修饰符
+
+typescript 预编译语言:javascript语法变成类似于Java或C#面向对象编程企业级语言
+  
+   Typescript支持的数据类型:
+       1. number 数值型 
+       2.  boolean  布尔型
+       3.  string  字符串型
+       4. array? 数组型
+       5. tuple  元祖型:特殊要求的数组,指定对应位置元素的类型
+       6.enum 枚举型：enum类型是对JavaScript标准数据类型的一个扩展。 像C#、Java等其它语言一样，使     用枚举类型可以为一组数值赋予友好的名字。
+       7. any 任意类型：可以赋值为任何类型都可以
+       8.  void void型：void类型像是与any类型相反，它表示没有任何类型。 代表一个函数没有返回值。
+       9. never never型： never类型是任何类型的子类型，也可以赋值给任何类型；然而，没有类型是never的        子类型或可以赋值给never类型（除了never本身之外）。 即使 any也不可以赋值给never。通常表现为抛        出异常或无法执行到终止点（例如无线循环）
+      10. null null类型 
+      11. undefined undefined类型
+
+
+
+react hooks 16.7 新增语法
+  yarn add react@next  react-dom@next 
+
+   --统一组件写法
+   --简化写法，减少代码量，加快开发速度
+   --合并生命周期方法
+
+const  [ count , setCount ] = useState ( 5 )
+
+
+async  await
+简述一下async和await？
+
+
+1.async 表示这是一个 async 函数，而 await 只能在这个函数里面使用。
+
+2.await 表示在这里等待 await 后面的操作执行完毕，再执行下一句代码。
+
+3.await 后面紧跟着的最好是一个耗时的操作或者是一个异步操作(当然非耗时的操作也可以的，
+  但是就失去意义了)。
+
+4.async代替了generator函数 用同步的方法去写异步操作
+
+5.  其实在使用 async/await 的时候最简单的场景就是当你需要执行一个耗时操作时
+    或者必须为异步操作时就可以直接使用 async 来执行你的函数，
+    在这个函数内部 使用 await 关键字来达到异步执行的最终目的：
+    执行完毕（异步执行）了，可以运行下一行代码了！
+
+
+
+
+ES7/8/9新增api    
+      Array.prototype.includes()方法接受两个参数
+                 ----- 要搜索的值    搜素的开始索引
+                 -----includes()方法用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回true,否则返回false
+
+求幂运算符（ **  ）
+  4**3   64
+  Math。pow(4,3)
+
+
+Async/Await,用于处理js异步操作的语法糖，帮助我们摆脱回调地狱，编写更加优雅的代码
+

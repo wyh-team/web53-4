@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="http://resource.mizuiren.com/jquery.js" type="text/javascript"></script> 
+<div class="top">
+  <div class="top_bar">
+    <div class="top_bar_lef"> <a href="javascript:void(0);" onclick="AddFavorite(window.location)">收藏秋叶网络博客</a> <i>|</i> 您好，欢迎来到秋叶网络博客！<i>|</i> </div>
+  </div>
+</div>
+
+<style>
+* {margin:0px auto;}
+a{text-decoration:none;}
+body {font:12px/150% Arial,Verdana,"宋体"; color:#555555;}
+.top { width:100%; height:29px; line-height:29px; border-bottom:1px solid #eeeeee; font-size:12px;background:#f7f7f7;}
+.top_bar { width:1210px; }
+.top_bar_lef { float:left; color:#666666;}
+.top_bar_lef a, .top_bar_rig a { padding-right:10px; color:#666666;}
+.top_bar_lef i, .top_bar_rig i { padding-right:10px; }
+.top_bar_lef a:hover, .top_bar_rig a:hover { color:#f03b43; text-decoration:underline;}
+.top_bar_rig { float:right; text-align:right;}
+.top_bar_rig em {padding-right:5px; color:#666666;}
+.top_bar_lef a.member { color:#f03b43; padding:0px 3px;}
+
+
+.side_nav91 { width:44px; height:100%; background:#f1f1f1; border-left:1px solid #dddddd; position:fixed; bottom:0px; right:0px; z-index: 99999999;  _position:absolute; _height:830px; *right:-1px;}
+.sina91{  height:600px; position:relative;  _position:absolute; right:0px;} 
+.sina91_cell { height:70px; margin-bottom:5px; position:relative;}
+.sina91_cell a.link { height:50px; width:44px; padding:10px 0px; display:block; position:absolute; left:0px; z-index:2; background:#f1f1f1; cursor:default;}
+.sina91_cell.cur a.link {background:#eb6161;}
+.sina91_cell .icon { width:25px; height:25px; margin-bottom:2px; background:url(http://www.baiji.com.cn//bj_img/index_v4/sidenavbg.png) no-repeat;}
+.sina91_cell .menu { width:44px; height:18px; line-height:18px; text-align:center; color:#555555;}
+.sina91_cell.ctact .icon { background-position:-48px 0px;}
+.sina91_cell.phone .icon { background-position:-50px -30px;}
+.sina91_cell.cart .icon { background-position:-52px -60px;}
+.sina91_cell.quality .icon { background-position:-52px -92px;}
+.sina91_cell.feedback .icon { background-position:-51px -123px;}
+.sina91_cell.wechat .icon { background-position:-53px -153px;}
+.sina91_cell.poli .icon { background-position:-53px -185px;}
+
+.sina91_cell.ctact.cur .icon { background-position:-2px top;}
+.sina91_cell.phone.cur .icon { background-position:-4px -30px;}
+.sina91_cell.cart.cur .icon { background-position:-6px -60px;}
+.sina91_cell.quality.cur .icon { background-position:-6px -92px;}
+.sina91_cell.feedback.cur .icon { background-position:-5px -123px;}
+.sina91_cell.wechat.cur .icon { background-position:-7px -153px;}
+.sina91_cell.poli.cur .icon { background-position:-7px -185px;}
+.sina91_cell.cur { }
+.sina91_cell.cur .menu { color:#FFF;}
+/*redend*/
+.sina91_line { width:35px; height:2px; margin-bottom:10px; background:url(http://www.baiji.com.cn//bj_img/index_v4/sidenavbg.png) 0px -180px no-repeat;}
+/*-----------------------二级菜单----------------------*/
+.sina91_sec { width:95px; min-height:50px; line-height:25px; position:absolute; top:0px; z-index:1; right:-110px;}
+.sina91_cell.ctact .sina91_sec a { padding:5px 10px 5px 35px; display:block; color:#FFF; background:#676767;}
+.sina91_cell.ctact .sina91_sec a.ctacta {  background:url(http://www.baiji.com.cn//bj_img/index_v4/ctactbg.png) 6px 3px no-repeat #676767; }
+.sina91_cell.ctact .sina91_sec a.ctactb {  background:url(http://www.baiji.com.cn//bj_img/index_v4/ctactbg.png) 6px -24px no-repeat #676767; }
+
+.sina91_phone { width:152px; min-height:70px; position:absolute; top:0px; background:#f2f2f2; z-index:1; right:-152px;}
+.sina91_pha { height:28px; line-height:28px; background:#f2f2f2; font-size:12px; text-align:center; color:#555555; border-left:1px solid #ddd; border-right:1px solid #ddd; border-top:1px solid #ddd;}
+.sina91_phb { height:41px; background:url(http://www.baiji.com.cn//bj_img/index_v4/sidemenu400.gif) center center no-repeat #f03b44;}
+
+.sina91_cart { width:130px; min-height:70px; position:absolute; right:-130px; top:0px; background:#f2f2f2;}
+.sina91_cara { height:34px; line-height:34px; background:url(http://www.baiji.com.cn//bj_img/index_v4/sidenavbg.png) -56px -257px no-repeat #f2f2f2; padding-left:32px; font-size:12px; color:#555555; border-left:1px solid #ddd; border-right:1px solid #ddd; border-top:1px solid #ddd; overflow:hidden;}
+.sina91_cara em { color:#e43941;}
+.sina91_carb { height:35px; line-height:35px; background:#f03b44; text-align:center; color:#FFF;}
+.sina91_carb a { display:block; color:#FFF;}
+.sina91_carb a:hover { text-decoration:underline;}
+.sina91_cell.certi .sina91_sec a, .sina91_cell.pay .sina91_sec a, .sina91_cell.user .sina91_sec a { padding:5px 10px; height:25px; overflow:hidden; display:block; color:#FFF; background:#656565;}
+/*-----------------------二级菜鼠标经过----------------------*/
+.sina91_cell.ctact .sina91_sec a:hover { padding:5px 10px 5px 35px; display:block; color:#FFF; background:#f03b44;}
+.sina91_cell.ctact .sina91_sec a:hover.ctacta {  background:url(http://www.baiji.com.cn//bj_img/index_v4/ctactbg.png) 6px 3px no-repeat #f03b44; }
+.sina91_cell.ctact .sina91_sec a:hover.ctactb {  background:url(http://www.baiji.com.cn//bj_img/index_v4/ctactbg.png) 6px -24px no-repeat #f03b44; }
+.sina91_cell.ctact .sina91_sec a:hover.ctactc {  background:url(http://www.baiji.com.cn//bj_img/index_v4/ctactbg.png) 6px -50px no-repeat #f03b44; }
+.sina91_cell.certi .sina91_sec a:hover, .sina91_cell.pay .sina91_sec a:hover, .sina91_cell.user .sina91_sec a:hover { padding:5px 10px; height:25px; overflow:hidden; display:block; color:#FFF; background:#f03b44;}
+/*-----------背景二级---------*/
+.sina91_cell.quality .sina91_sec a, .sina91_cell.feedback .sina91_sec a, .sina91_cell.history .sina91_sec a, .sina91_cell.poli .sina91_sec a, .sina91_cell.cart .sina91_sec a  { padding:5px; height:25px; overflow:hidden; display:block; color:#FFF; background:#676767; text-align:center; }
+.sina91_cell.quality .sina91_sec a:hover, .sina91_cell.feedback .sina91_sec a:hover, .sina91_cell.history .sina91_sec a:hover, .sina91_cell.poli .sina91_sec a:hover, .sina91_cell.cart .sina91_sec a:hover { background:#f03b44; }
+.sina91_cell.phone .sina91_sec a { padding:5px; height:25px; overflow:hidden; display:block; color:#FFF; background:#f03b44; text-align:center; }
+.sina91_cell.quality .sina91_point, .sina91_cell.feedback .sina91_point, .sina91_cell.cart .sina91_point, .sina91_cell.wechat .sina91_point {border-left: 8px solid #f03b44; display:none; }
+.sina91_cell.phone .sina91_sec a { font-size:14px;}
+/*-----------微信二级---------*/
+.sina91_wechat { width:130px; bottom:0px; right:44px; display:block; display:none; position:absolute;}
+.sn91_wca {  padding:10px 0px; text-align:center; border:solid #dddddd; border-width:1px 1px 0px 1px; background:#FFF;}
+.sn91_wcb { padding:5px 10px; height: 40px; line-height: 20px; text-align: center;color:#FFF; background:#f03b44;}
+.sina91_point {  position: absolute; top: 12px; right: 50px; width: 0; height: 0; line-height: 0; font-size: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-left: 8px solid #cacaca; opacity: 0; filter: alpha(opacity=0); display:none;}
+.backtop91 { width:44px; height:44px; position:absolute; bottom:0px; left:0px; background:url(http://www.baiji.com.cn//bj_img/index_v4/sidenavbg.png) -45px -217px no-repeat #dddddd; display:block;}
+.backtop91:hover { background:url(http://www.baiji.com.cn//bj_img/index_v4/sidenavbg.png) 2px -217px no-repeat #eb6161;}
+/*-----------微信二级 end  1212add---------*/
+.sidnposi91 {  position:absolute; bottom:0px; left:0px; _height:800px; _width:44px; width:44px;}
+</style>
+
+<div class="side_nav91">
+  <div class="sidnposi91">
+    <div class="sina91">
+      <div class="sina91_cell ctact"> <a class="link">
+        <div class="icon"></div>
+        <div class="menu">在线</div>
+        <div class="clear"></div>
+        </a>
+        <div class="sina91_sec" style="right: -110px;"> <a onclick="onlineinquiry_click();" href="" class="ctacta">在线咨询</a> <a href="" class="ctactb">QQ在线</a>
+          <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="sina91_cell phone"> <a class="link">
+        <div class="icon"></div>
+        <div class="menu">电话</div>
+        <div class="clear"></div>
+        </a>
+        <div class="sina91_sec" style="right: -110px;"> <a>1183238717</a>
+          <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="sina91_cell cart"> <a class="link">
+        <div class="icon"></div>
+        <div class="menu">购物车</div>
+        <div class="clear"></div>
+        </a>
+        <div class="sina91_sec" style="right: -110px;"><a href="" target="_blank">购物车0件</a>
+          <div class="clear"></div>
+        </div>
+        <div class="sina91_point" style="right: 27px;opacity: 1;display: inline;display:none;"></div>
+        <div class="clear"></div>
+      </div>
+      <div class="sina91_cell quality"> <a class="link">
+        <div class="icon"></div>
+        <div class="menu">保障</div>
+        <div class="clear"></div>
+        </a>
+        <div class="sina91_sec" style="right: -110px;"> <a href="http://www.mizuiren.com/" target="_blank">正品保障</a>
+          <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="sina91_cell feedback"> <a class="link">
+        <div class="icon"></div>
+        <div class="menu">反馈</div>
+        <div class="clear"></div>
+        </a>
+        <div class="sina91_sec" style="right: -110px;"> <a href="http://www.mizuiren.com/" target="_blank">投诉建议</a>
+          <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="sina91_cell wechat"> <a class="link" href="http://www.mizuiren.com/">
+        <div class="icon"></div>
+        <div class="menu">微信</div>
+        <div class="clear"></div>
+        </a>
+        <div class="sina91_wechat" style="display: none;">
+          <div class="sn91_wca"><img src="http://www.mizuiren.com/img/gongzhonghao.jpg" width="110" height="110"></div>
+          <div class="sn91_wcb">加微信享受更多优惠<br />
+            ID：qiuyeboke</div>
+          <div class="clear"></div>
+        </div>
+        <div class="sina91_point" style="right: 27px;opacity: 1;display: inline; display:none;"></div>
+        <div class="clear"></div>
+      </div>
+      <div class="sina91_cell poli"> <a class="link" href="http://www.mizuiren.com/">
+        <div class="icon"></div>
+        <div class="menu">防诈骗</div>
+        <div class="clear"></div>
+        </a>
+        <div class="sina91_sec" style="right: -110px;"> <a href="http://www.mizuiren.com/" target="_blank">防诈骗公告</a>
+          <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <a href="javascript:;" id="back-to-top" class="backtop91"></a>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="clear"></div>
+</div>
+</div>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<script>
+/*加入收藏夹*/
+function AddFavorite(sURL, sTitle)
+{
+    try{window.external.addFavorite(sURL, sTitle);}
+    catch (e)
+    {
+        try{
+			window.sidebar.addPanel(sTitle, sURL, "");
+		}
+        catch (e){alert("收藏失败，请使用Ctrl+D收藏【秋叶网络博客】");}
+    }
+}
+
+$(function () {
+	//当点击跳转链接后，回到页面顶部位置
+	$("#back-to-top").click(function(){
+	$('body,html').animate({scrollTop:0},250); //距离顶部0像素，250为时间
+	return false;
+	});		
+	//侧导鼠标经过背景
+	$(".sina91_cell").hover(function(){
+		$(this).addClass("cur");
+		$(this).children(".sina91_sec").animate({right:44},250);
+		$(this).children(".sina91_phone").animate({right:44},250);
+		$(this).children(".sina91_cart").animate({right:44},250);
+		$(this).children(".sina91_wechat").show();
+		},function(){
+			
+			$(this).removeClass("cur");
+			$(this).children(".sina91_sec").animate({right:-110},250);
+			$(this).children(".sina91_phone").animate({right:-152},250);
+			$(this).children(".sina91_cart").animate({right:-110},250);
+			$(this).children(".sina91_wechat").hide();
+	})
+});
+</script>
+</body>
+</html>

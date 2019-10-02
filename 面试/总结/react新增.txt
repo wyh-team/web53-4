@@ -1,0 +1,126 @@
+废除的生命周期
+
+    componentWillMount
+    componentWillRecieveProps
+    componentWillUpdate
+
+
+新增
+
+   static getDerivedStateFromProps( nextProps, prevState ) {  }
+
+  用于替换  compoentWillReceiveProps  可以用来控制 props 更新 state 的过程；它返回一个对象表示新的 state；如果不需要更新，返回 null 即可
+
+   在每次渲染之前都会调用，不管初始挂载还是后面的更新都会调用，这一点和componentWillReceiveProps不同（只有当父组件造成重新渲染时才调用
+
+　　简单的理解就说从props中获取state，这个生命周期的功能实际上就是将传入的props映射到state上面
+
+　　getDerivedStateFromProps是一个静态函数，也就是这个函数不能通过this访问到class的属性，也并不推荐直接访问属性。而是应该通过参数提供的nextProps以及prevState来进行判断，根据新传入的props来映射到state
+
+　　如果props传入的内容不需要影响到你的state，那么就需要返回一个null，这个返回值是必须的，所以尽量将其写到函数的末尾
+
+
+getSnapshotBeforeUpdate() {}         
+ 　在最近的更改被提交到DOM元素前，使得组件可以在更改之前获得当前值，此生命周期返回的任意值都会传给componentDidUpdate()。
+　　用于替换 componentWillUpdate，该函数会在update后 DOM 更新前被调用，用于读取最新的 DOM 数据，返回值将作为 componentDidUpdate 的第三个参数
+
+　　在最新的渲染数据提交给DOM前会立即调用，它让你在组件的数据可能要改变之前获取他们
+
+ 
+
+
+　　componendDidCatch(error, info)
+
+　　如果一个组件定义了componentDidCatch生命周期，则他将成为一个错误边界(错误边界会捕捉渲染期间、在生命周期方法中和在它们之下整棵树的构造函数中的错误，
+
+　　就像使用了try catch，不会将错误直接抛出了，保证应用的可用性)
+
+
+
+
+
+
+
+react hooks 16.7 新增语法
+  yarn add react@next  react-dom@next 
+
+   --统一组件写法
+   --简化写法，减少代码量，加快开发速度
+   --合并生命周期方法
+
+const  [ count , setCount ] = useState ( 5 )
+
+
+
+
+
+
+
+
+
+
+ES7/8/9新增api    
+      Array.prototype.includes()方法接受两个参数
+                 ----- 要搜索的值    搜素的开始索引
+                 -----includes()方法用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回true,否则返回false
+
+求幂运算符（ **  ）
+  4**3   64
+  Math。pow(4,3)
+
+Async/Await,用于处理js异步操作的语法糖，帮助我们摆脱回调地狱，编写更加优雅的代码
+
+
+
+
+
+
+
+async  await
+简述一下async和await？
+
+
+1.async 表示这是一个 async 函数，而 await 只能在这个函数里面使用。
+
+2.await 表示在这里等待 await 后面的操作执行完毕，再执行下一句代码。
+
+3.await 后面紧跟着的最好是一个耗时的操作或者是一个异步操作(当然非耗时的操作也可以的，
+  但是就失去意义了)。
+
+4.async代替了generator函数 用同步的方法去写异步操作
+
+5.  其实在使用 async/await 的时候最简单的场景就是当你需要执行一个耗时操作时
+    或者必须为异步操作时就可以直接使用 async 来执行你的函数，
+    在这个函数内部 使用 await 关键字来达到异步执行的最终目的：
+    执行完毕（异步执行）了，可以运行下一行代码了！
+
+
+
+
+
+
+
+
+
+
+ts
+.typescript       
+TypeScript特点:
+            预编译  tsx/ts?js
+            有类型的script
+            面向对象 枚举 接口 访问修饰符
+
+typescript 预编译语言:javascript语法变成类似于Java或C#面向对象编程企业级语言
+  
+   Typescript支持的数据类型:
+       1. number 数值型 
+       2.  boolean  布尔型
+       3.  string  字符串型
+       4. array? 数组型
+       5. tuple  元祖型:特殊要求的数组,指定对应位置元素的类型
+       6.enum 枚举型：enum类型是对JavaScript标准数据类型的一个扩展。 像C#、Java等其它语言一样，使     用枚举类型可以为一组数值赋予友好的名字。
+       7. any 任意类型：可以赋值为任何类型都可以
+       8.  void void型：void类型像是与any类型相反，它表示没有任何类型。 代表一个函数没有返回值。
+       9. never never型： never类型是任何类型的子类型，也可以赋值给任何类型；然而，没有类型是never的        子类型或可以赋值给never类型（除了never本身之外）。 即使 any也不可以赋值给never。通常表现为抛        出异常或无法执行到终止点（例如无线循环）
+      10. null null类型 
+      11. undefined undefined类型

@@ -1,0 +1,5 @@
+宏任务一般包括：整体代码script，setTimeout，setInterval。
+
+微任务：Promise，process.nextTick
+
+先执行微任务 再 执行宏任务

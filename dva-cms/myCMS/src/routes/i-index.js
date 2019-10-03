@@ -1,20 +1,24 @@
 import React from 'react';
 import { connect } from 'dva';
-
+// import ReactDOM from 'react-dom';
 import { BrowserRouter as Router,Route,Link,Switch } from "react-router-dom";
-// import styles from './IndexPage.css';
 import { Layout, Menu, Icon } from 'antd';
 import 'antd/dist/antd.css';
 
-import Banner from "../components/banner.js";
+import Banner from '../components/banner';
 import Teacher from '../components/teacher';
 import News from '../components/news';
 import Index from '../components/index-m';
+// import Form from './form';
 
 const { Header, Content, Footer, Sider } = Layout;
-function IndexPage() {
-  return (
-    <Layout style={{height:'750px'}}>
+
+function Cms(){
+   
+    
+        return(
+            <Router>
+                <Layout style={{height:'750px'}}>
                     <Sider
                       breakpoint="lg"
                       collapsedWidth="0"
@@ -63,15 +67,13 @@ function IndexPage() {
                         </Header>
                         <Content style={{ margin: '24px 16px 0' }}>
                             <div style={{ padding: 24, background: '#fff', height:'100%' ,overflow:'auto'}}>
-                                <Router> 
-                                    <Switch>    
-                                        <Route path='/' component = {Index} />
-                                        <Route path='/banner'  component = {Banner} /> 
-                                        <Route path='/teacher' component = {Teacher} />
-                                        <Route path='/news' component = {News} />
-                                    </Switch>
-                                </Router>
                                 
+                            <Switch>
+                                <Route path='/' exact component = {Index} />
+                                <Route path='/banner'  component = {Banner} /> 
+                                <Route path='/teacher' component = {Teacher} />
+                                <Route path='/news' component = {News} />
+                            </Switch>
                             </div>
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>
@@ -80,11 +82,12 @@ function IndexPage() {
                     </Layout> 
 
                     
-                </Layout>
-  );
+                </Layout>               
+            </Router>
+        )
 }
-
-IndexPage.propTypes = {
-};
-
-export default connect()(IndexPage);
+export default connect()(Cms);
+// ReactDOM.render(
+//     <div><Form id='div'/><Cms/></div>,
+//     document.getElementById('app')
+// );
